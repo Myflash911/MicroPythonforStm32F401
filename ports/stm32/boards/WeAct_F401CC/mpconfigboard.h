@@ -1,4 +1,4 @@
-#define MICROPY_HW_BOARD_NAME       "WeFun_Core"
+#define MICROPY_HW_BOARD_NAME       "WeAct_Core"
 #define MICROPY_HW_MCU_NAME         "STM32F401CC"
 
 #define MICROPY_PY_THREAD           (1)
@@ -13,13 +13,13 @@ void WeFun_Core_board_early_init(void);
 #define MICROPY_PY_NETWORK          (0)
 #define MICROPY_PY_STM              (1)
 #define MICROPY_PY_PYB_LEGACY       (0)
-#define MICROPY_VFS_FAT             (1)
+#define MICROPY_VFS_FAT             (0)
 
 #define MICROPY_HW_ENABLE_INTERNAL_FLASH_STORAGE (0)
 #define MICROPY_HW_HAS_SWITCH       (0)
 #define MICROPY_HW_HAS_FLASH        (1)
 #define MICROPY_HW_ENABLE_RTC       (1)
-#define MICROPY_HW_ENABLE_USB       (1)
+#define MICROPY_HW_ENABLE_USB       (0)
 #define MICROPY_HW_ENABLE_SERVO     (1)
 #define MICROPY_HW_ENABLE_TIMER     (1)
 
@@ -102,7 +102,7 @@ void WeFun_Core_board_early_init(void);
 
 
 // block device config for SPI flash
-
+/*
 extern const struct _mp_spiflash_config_t spiflash_config;
 extern struct _spi_bdev_t spi_bdev;
 #define MICROPY_HW_BDEV_IOCTL(op, arg) ( \
@@ -112,7 +112,9 @@ extern struct _spi_bdev_t spi_bdev;
 )
 #define MICROPY_HW_BDEV_READBLOCKS(dest, bl, n) spi_bdev_readblocks(&spi_bdev, (dest), (bl), (n))
 #define MICROPY_HW_BDEV_WRITEBLOCKS(src, bl, n) spi_bdev_writeblocks(&spi_bdev, (src), (bl), (n))
-
+*/
 // USB config
 #define MICROPY_HW_USB_FS (1)
-#define MICROPY_HW_FLASH_FS_LABEL "wefunf401"
+#define MICROPY_HW_USB_CDC_NUM (1)
+#define MICROPY_HW_ENABLE_SDCARD (0)
+#define MICROPY_HW_FLASH_FS_LABEL "WeActf401"
