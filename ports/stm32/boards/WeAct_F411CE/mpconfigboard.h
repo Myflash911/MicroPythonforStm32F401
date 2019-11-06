@@ -7,13 +7,19 @@
 #define MICROPY_BOARD_EARLY_INIT    WeAct_Core_board_early_init
 void WeAct_Core_board_early_init(void);
 
+/* BOARD Ver 2.0 set 1 ，other set 0 */
+#define VERSION_V20 (0)
+
 /* 使用内置flash改1 使用外置flash请改0 */
 #define MICROPY_HW_ENABLE_INTERNAL_FLASH_STORAGE (1)
-#define MICROPY_HW_HAS_SWITCH       (0)
+
+#define MICROPY_HW_HAS_SWITCH       (1)
 #define MICROPY_HW_HAS_FLASH        (1)
 #define MICROPY_HW_ENABLE_RTC       (1)
 #define MICROPY_HW_ENABLE_USB       (1)
 #define MICROPY_HW_ENABLE_SERVO     (1)
+#define MICROPY_HW_ENABLE_SDCARD    (0)
+#define MICROPY_HW_ENABLE_RNG       (0)
 
 // HSE is 25MHz, CPU freq set to 96MHz
 #define MICROPY_HW_CLK_PLLM (25)
@@ -24,6 +30,7 @@ void WeAct_Core_board_early_init(void);
 // UART config
 #define MICROPY_HW_UART1_TX     (pin_A9)
 #define MICROPY_HW_UART1_RX     (pin_A10)
+
 #define MICROPY_HW_UART2_TX     (pin_A2)
 #define MICROPY_HW_UART2_RX     (pin_A3)
 // UART 2 connects to the STM32F103 (STLINK) on the Nucleo board
@@ -67,13 +74,13 @@ void WeAct_Core_board_early_init(void);
 // #define MICROPY_HW_SPI5_MOSI    (pin_B0)    //              pin 34 on CN7
 
 // USRSW is pulled low. Pressing the button makes the input go high.
-// #define MICROPY_HW_USRSW_PIN        (pin_C13)
-// #define MICROPY_HW_USRSW_PULL       (GPIO_NOPULL)
-// #define MICROPY_HW_USRSW_EXTI_MODE  (GPIO_MODE_IT_FALLING)
-// #define MICROPY_HW_USRSW_PRESSED    (0)
+#define MICROPY_HW_USRSW_PIN        (pin_A0)
+#define MICROPY_HW_USRSW_PULL       (GPIO_PULLUP)
+#define MICROPY_HW_USRSW_EXTI_MODE  (GPIO_MODE_IT_FALLING)
+#define MICROPY_HW_USRSW_PRESSED    (0)
 
 // LEDs
-#define MICROPY_HW_LED1             (pin_C13) // Blue LD2 LED on board
+#define MICROPY_HW_LED1             (pin_C13) // Blue C13 LED on board
 #define MICROPY_HW_LED_ON(pin)      (mp_hal_pin_low(pin))
 #define MICROPY_HW_LED_OFF(pin)     (mp_hal_pin_high(pin))
 
@@ -91,7 +98,13 @@ void WeAct_Core_board_early_init(void);
 
 #define MICROPY_HW_SPIFLASH_CS      (pin_A4)
 #define MICROPY_HW_SPIFLASH_SCK     (pin_A5)
-#define MICROPY_HW_SPIFLASH_MISO    (pin_A6)
+
+#if VERSION_V20
+	#define MICROPY_HW_SPIFLASH_MISO    (pin_B4)
+#else 
+	#define MICROPY_HW_SPIFLASH_MISO    (pin_A6)
+#endif
+
 #define MICROPY_HW_SPIFLASH_MOSI    (pin_A7)
 
 
@@ -112,4 +125,4 @@ extern struct _spi_bdev_t spi_bdev;
 
 // USB config
 #define MICROPY_HW_USB_FS (1)
-#define MICROPY_HW_FLASH_FS_LABEL "WeActF411"
+#define MICROPY_HW_FLASH_FS_LABEL "WeActF411CE"
